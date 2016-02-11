@@ -27,8 +27,8 @@
 #include <cairo/cairo-xlib.h>
 
 #include "mEventDispatcher.h"
-#include "GUIComponent.h"
-
+#include "GUIComponentBase.h"
+#include "GUIManager.h"
 class mWindow{
 private:
     Display *display;
@@ -36,8 +36,9 @@ private:
     XVisualInfo visual_info;
     Colormap mColorMap;
     Window topWin;
-    EventDispatcher *eventDispatcher;
     
+    EventDispatcher *eventDispatcher;
+    GUIManager *Gmanager;
     
     cairo_surface_t *GUI_surface, *MAP_surface, *frontSurface;
     cairo_t *GUI_context, *MAP_context, *frontContext;
@@ -65,14 +66,15 @@ private:
 protected:
 public:
     mWindow();
-    
+    ~mWindow();
     void registerDrawMapFunc(void (*drawMap)(cairo_t*));
     void registerDrawGuiFunc(void (*drawGui)(cairo_t*));
     void registerResizeFunc(void (*resize)(int, int));
     
     void updateGUI();
     
-    void addGUIComponent(GUIComponent*);
+    void addGUIComponent(GUIComponentBase*);
+    
     void startEventLoop();
     void stopEventLoop();
     void showWindow();

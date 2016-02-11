@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+#include "mEventDispatcher.h"
+
+
 #include <stdlib.h>
 
 #include <X11/Xlib.h>
@@ -13,8 +16,7 @@
 #include <iostream>
 
 #include "notSoEasyGL.h"
-#define winWidth 1000
-#define winHeight 800
+#include "Config.h"
 
 mWindow::mWindow() {
     looping = false;
@@ -23,23 +25,26 @@ mWindow::mWindow() {
         exit(1);
     screenID = DefaultScreen(display);
     topWin = XCreateSimpleWindow(display, DefaultRootWindow(display),
-            0, 0, winWidth, winHeight, 0, 0, 0);
+            0, 0, winWidth, winHeight, 0, 100, 0xfffacd);
     XSelectInput(display, topWin, ButtonPressMask | ButtonReleaseMask | KeyPressMask | KeyReleaseMask | PointerMotionMask | StructureNotifyMask | ExposureMask);
 
     frontSurface = cairo_xlib_surface_create(display, topWin,
-            DefaultVisual(display, screenID), 1000, 800);
+            DefaultVisual(display, screenID), winWidth, winHeight);
     frontContext = cairo_create(frontSurface);
 
     GUI_surface = cairo_surface_create_similar(cairo_get_target(frontContext),
             CAIRO_CONTENT_COLOR_ALPHA, winWidth, winHeight);
 
-    MAP_surface = cairo_surface_create_similar(cairo_get_target(frontContext),
-            CAIRO_CONTENT_COLOR_ALPHA, winWidth, winHeight);
+    //    MAP_surface = cairo_surface_create_similar(cairo_get_target(frontContext),
+    //            CAIRO_CONTENT_COLOR_ALPHA, winWidth, winHeight);
 
     GUI_context = cairo_create(GUI_surface);
-    MAP_context = cairo_create(MAP_surface);
+    //MAP_context = cairo_create(MAP_surface);
 
+    Gmanager = new GUIManager(GUI_context);
     eventDispatcher = new EventDispatcher(winWidth, winHeight);
+    Gmanager->registerEventDispatcher(eventDispatcher);
+    eventDispatcher->registerGUImanager(Gmanager);
 
     clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &timer);
 
@@ -48,8 +53,15 @@ mWindow::mWindow() {
 
 }
 
-void mWindow::addGUIComponent(GUIComponent* obj) {
-    eventDispatcher->addComponent(obj);
+mWindow::~mWindow() {
+    cairo_destroy(GUI_context);
+    cairo_destroy(frontContext);
+    cairo_surface_destroy(GUI_surface);
+    cairo_surface_destroy(frontSurface);
+    delete eventDispatcher;
+    delete Gmanager;
+    //XDestroyWindow(display, topWin);
+    //XCloseDisplay(display);
 }
 
 void mWindow::showWindow() {
@@ -65,18 +77,20 @@ void mWindow::startEventLoop() {
     while (looping) {
         clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &cur);
 
-        if((cur.tv_nsec - timer.tv_nsec)<1000) continue;
+        //        if((cur.tv_sec - timer.tv_sec)>5) 
+        //            looping = false;
         //std::cout << 1e9 / (cur.tv_nsec - timer.tv_nsec) << std::endl;
 
         //std::cout << "hello" << std::endl;
-        
-        if (XCheckWindowEvent(display, topWin, ButtonPressMask | ButtonReleaseMask | KeyPressMask | KeyReleaseMask | PointerMotionMask | StructureNotifyMask | ExposureMask, &event)) {
-            //XNextEvent(display, &event);
+
+        //if (XCheckWindowEvent(display, topWin, ButtonPressMask | ButtonReleaseMask | KeyPressMask | KeyReleaseMask | PointerMotionMask | StructureNotifyMask | ExposureMask, &event)) {
+            XNextEvent(display, &event);
             eventDispatcher->fetchAndDispatchEvent(&event);
 
-        }
+        //}
+        //std::cout<<"update"<<std::endl;
         updateGUI();
-        clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &timer);
+        //clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &timer);
     }
 }
 
@@ -97,9 +111,16 @@ void mWindow::registerResizeFunc(void (*resize)(int, int)) {
 }
 
 void mWindow::updateGUI() {
+    
+    //cairo_save(frontContext);
+//    cairo_set_source_rgb(frontContext, 1, 1, 1);
+//    cairo_paint(frontContext);
+
 
     if (callbackFunc.drawGui)
         callbackFunc.drawGui(GUI_context);
+
+    Gmanager -> DrawAll();
     //    if (callbackFunc.drawMap)
     //        callbackFunc.drawMap(MAP_context);
 
@@ -108,7 +129,15 @@ void mWindow::updateGUI() {
     //    cairo_paint(GUI_context);
     cairo_set_source_surface(frontContext, GUI_surface, 0, 0);
     cairo_paint(frontContext);
+    
+    //cairo_set_source_rgb(GUI_context, 1, 1, 1);
+    //cairo_paint(GUI_context);
+
+    //cairo_restore(frontContext);   
 
 
 }
 
+void mWindow::addGUIComponent(GUIComponentBase* com) {
+    Gmanager->addComponent(com);
+}

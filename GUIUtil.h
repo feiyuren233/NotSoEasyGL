@@ -13,21 +13,23 @@
 
 #ifndef GUIUTIL_H
 #define GUIUTIL_H
+#include "GUIComponentBase.h"
+#include "Config.h"
 
 struct Point2i {
     int x, y;
 
-    Point2i(int x, int y) : x(x), y(y) {
-    }
+    Point2i(int x, int y);
 
-    Point2i operator+(Point2i other) {
-        return Point2i(x + other.x, y + other.y);
-    }
-    Point2i operator-(Point2i other) {
-        return Point2i(x - other.x, y - other.y);
-    }
+    Point2i();
+
+    Point2i operator+(Point2i other);
+
+    Point2i operator-(Point2i other);
 
 };
 
+unsigned TranslateMap(int x, int y);
+void initGUISys(int winWidth, int winHeight);
 #endif /* GUIUTIL_H */
 

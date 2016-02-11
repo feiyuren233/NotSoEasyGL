@@ -18,8 +18,11 @@
 #include <cairo/cairo.h>
 #include <cairo/cairo-xlib.h>
 
+
+#include "Config.h"
 #include "notSoEasyGL.h"
 #include "mEventDispatcher.h"
+#include "WidgetButton.h"
 
 #define M_PI 3.1415
 
@@ -53,14 +56,14 @@ void draw(cairo_t *cr) {
     cairo_stroke(cr);
 }
 
-void draw2(cairo_t *cr) {
+void draw2(Button *b, cairo_t *cr) {
 
-    std::cout << "Draw2!!!" << std::endl;
+    //std::cout << "Draw2!!!" << std::endl;
 
-    double x0 = 40, /* parameters like cairo_rectangle */
-            y0 = 40,
-            rect_width = 204.8,
-            rect_height = 204.8,
+    double x0 = b->getTLPosition().x, /* parameters like cairo_rectangle */
+            y0 = b->getTLPosition().y,
+            rect_width = 500,
+            rect_height = 500,
             radius = 102.4; /* and an approximate curvature radius */
 
     double x1, y1;
@@ -113,14 +116,27 @@ void draw2(cairo_t *cr) {
     cairo_stroke(cr);
 }
 
+void ondrag(Button* b, int x, int y) {
+    b->setTLPosition(x, y);
+
+
+}
+
+int winWidth, winHeight;
+
 int main() {
+    initGUISys(1280, 960);
     mWindow win;
+    winWidth = 1000;
+    winHeight = 800;
+    win.addGUIComponent(new GUIComponentBase());
+    Button *zeroButton = new Button(0, 0, 500, 500);
+    zeroButton->regOnDraw(draw2);
+    zeroButton->regOnDrag(ondrag);
 
-
-    win.addGUIComponent(new GUIComponent());
+    win.addGUIComponent(zeroButton);
 
     win.registerDrawGuiFunc(draw);
-    win.registerDrawMapFunc(draw2);
 
     win.showWindow();
 

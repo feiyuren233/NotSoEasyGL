@@ -19,14 +19,16 @@
 #include <X11/Xlib.h>
 #include <vector>
 
-#include "GUIComponent.h"
+#include "GUIComponentBase.h"
 #include "GUIUtil.h"
-class GUIComponent;
+#include "Config.h"
+#include "GUIManager.h"
+class GUIComponentBase;
+class GUIManager;
 
 class EventDispatcher {
 private:
     uint8_t *componentMap;
-    int winWidth, winHeight;
 
     struct state{
         int lastActiveComp;
@@ -43,23 +45,20 @@ private:
         }
     }eventState;
     
+    GUIManager *GManager;
     
-    
-    
-    std::vector<GUIComponent*> vecGUIComponents;
 protected:
 public:
     inline unsigned TranslatePosition(int x, int y);
     EventDispatcher(int winWidth, int winHeight);
     ~EventDispatcher();
-
-    void addComponent(GUIComponent*);
-    void removeComponent(GUIComponent*);
-
-
+    void registerGUImanager(GUIManager* Gmanager);
+    
+    uint8_t* getGUImap();
+    
     void fetchAndDispatchEvent(XEvent*);
 
-    void globalRemapComponent();
+    void requestGlobalRemapComponent();
 
 };
 
