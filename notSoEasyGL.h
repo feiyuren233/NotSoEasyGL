@@ -44,8 +44,8 @@ private:
     cairo_t *GUI_context, *MAP_context, *frontContext;
     
     //Multithreading
-    std::thread *GUIthread;
-    std::thread *Eventthread;
+    //std::thread *GUIthread;
+    //std::thread *Eventthread;
     
     //Pixmap buffer;
     //Event handling

@@ -22,17 +22,19 @@ class GUIManager {
 private:
     std::vector<GUIComponentBase*> vecGUIComponents;
     EventDispatcher *eventDispatcher;
+    uint8_t *GUImap;
     cairo_t *GUIcontext;
 public:
 
     GUIManager(cairo_t*);
     GUIManager(const GUIManager& orig);
     ~GUIManager();
-    void registerEventDispatcher(EventDispatcher* eventDispatcher);
+    void registerEventDispatcher(EventDispatcher* eventDispatcher, uint8_t *GUImap);
     
     void addComponent(GUIComponentBase*);
     void removeComponent(GUIComponentBase*);
     void globalRemap(uint8_t *map);
+    uint8_t checkIDatGUImap(int x, int y);
     
     void DrawAll(void);
     

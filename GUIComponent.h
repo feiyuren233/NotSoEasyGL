@@ -20,31 +20,32 @@
 #include <cairo/cairo-xlib.h>
 #include <stdint.h>
 #include "mEventDispatcher.h"
-#include "GUIUtil.h"
-#include "Config.h"
-
-#include "GUIManager.h"
 class EventDispatcher;
-class GUIManager;
 
-class GUIComponentBase {
+
+class GUIComponent {
 private:
-
-protected:
-
-    static GUIManager *Gmanager;
-    uint8_t *GUImap;
+    EventDispatcher *eventDispatcher;
+    
     unsigned componentID;
-
     enum BoundType {
         Circle,
         Redtangle
     } BoundType;
 
-    //Callbacks
-    virtual void onDraw(cairo_t* context);
-    virtual void onRemap(uint_fast8_t* map);
-    virtual void onUnmap(uint_fast8_t *map);
+protected:
+
+public:
+    GUIComponent();
+    virtual ~GUIComponent();
+    
+    void setComponentID(int ID);
+    int getComponentID();
+    
+    void setEventDispatcher(EventDispatcher*);
+    
+    virtual void onDraw(cairo_t*);
+    virtual void onRemap(uint_fast8_t*);
     virtual void onCreate();
     virtual void onDestory();
     virtual void onEnter();
@@ -55,21 +56,8 @@ protected:
     virtual void onKeyRelease(int keycode);
     virtual void onDrag(int x, int y);
     virtual void onDrop(int x, int y);
-    
-    //Functions exposed to GUIcomponets
-    virtual uint8_t idAtGUImapLocation(int x, int y);
-
-public:
-    GUIComponentBase();
-    virtual ~GUIComponentBase();
-
-    void setComponentID(int ID);
-    int getComponentID();
-
-    static void registerGUImanager(GUIManager*);
-
-    friend class EventDispatcher;
-    friend class GUIManager;
 };
 
+
 #endif /* GUICOMPONENT_H */
+

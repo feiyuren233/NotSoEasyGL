@@ -28,19 +28,19 @@ class GUIManager;
 
 class EventDispatcher {
 private:
-    uint8_t *componentMap;
+    uint8_t *GUImap;
 
     struct state{
-        int lastActiveComp;
+        int activeComp;
         bool buttonPressed;
         bool pointerMovedAfterPress;
         int dragEventOwner;
         int currentActiveWidget;
         state(){
-            lastActiveComp = 0;
+            activeComp = 0;
             buttonPressed = false;
             pointerMovedAfterPress = false;
-            int dragEventOwner = 0;
+            dragEventOwner = 0;
             currentActiveWidget = 0;
         }
     }eventState;
@@ -58,7 +58,7 @@ public:
     
     void fetchAndDispatchEvent(XEvent*);
 
-    void requestGlobalRemapComponent();
+    //void requestGlobalRemapComponent();
 
 };
 

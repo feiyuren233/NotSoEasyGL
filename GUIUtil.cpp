@@ -11,7 +11,9 @@
 
 
 unsigned TranslateMap(int x, int y){
-    return y * winWidth + x;
+	if (x < 0 || x > winWidth || y < 0 || y > winHeight)
+		return winWidth * winHeight;
+	return y * winWidth + x;
 }
 
 Point2i::Point2i(int x, int y) : x(x), y(y) {

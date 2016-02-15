@@ -25,8 +25,9 @@ GUIManager::~GUIManager() {
         delete vecGUIComponents[i];
 }
 
-void GUIManager::registerEventDispatcher(EventDispatcher* eventDispatcher) {
+void GUIManager::registerEventDispatcher(EventDispatcher* eventDispatcher, uint8_t *GUImap) {
     GUIManager::eventDispatcher = eventDispatcher;
+    GUIManager::GUImap = GUImap;
 
     GUIComponentBase *zeroComponent = new GUIComponentBase();
     zeroComponent->registerGUImanager(this);
@@ -37,6 +38,7 @@ void GUIManager::addComponent(GUIComponentBase* component) {
     vecGUIComponents.push_back(component);
     component->setComponentID(vecGUIComponents.size() - 1);
 
+    component->GUImap = GUImap;
     component->onCreate();
     component->onRemap(eventDispatcher->getGUImap());
 }
@@ -57,4 +59,11 @@ void GUIManager::DrawAll() {
         vecGUIComponents[i]->onDraw(GUIcontext);
         
     }
+}
+
+uint8_t GUIManager::checkIDatGUImap(int x, int y) {
+	if(x<0||x>winWidth||y<0||y>winHeight)
+		return 0;
+	return GUImap[TranslateMap(x, y)];
+
 }

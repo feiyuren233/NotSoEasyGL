@@ -18,12 +18,18 @@
 class Button : public GUIComponentBase {
 private:
     Point2i TLPosition, BRPosition;
+    int width, height;
+
+    bool pressed, focused;
+
     //void (*ButtonCallback)(void);
 
     void (*clickCallback)(Button *button, int x, int y);
     void (*buttonPressCallback)(Button *button, int x, int y, int buttonCode);
     void (*drawCallBack)(Button *button, cairo_t *context);
     void (*dragCallBack)(Button *button, int x, int y);
+
+    void drawDefaultButton(cairo_t *context);
 protected:
 
 public:
@@ -44,7 +50,15 @@ public:
 
     virtual void onRemap(uint_fast8_t*);
 
-    void onDrag(int x, int y);
+    virtual void onDrag(int x, int y);
+
+    virtual void onDrop(int x, int y);
+
+    virtual void onEnter();
+
+    virtual void onLeave();
+
+    //virtual void onUnmap(uint8_t *map);
 
 
 

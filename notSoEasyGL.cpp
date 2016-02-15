@@ -43,7 +43,7 @@ mWindow::mWindow() {
 
     Gmanager = new GUIManager(GUI_context);
     eventDispatcher = new EventDispatcher(winWidth, winHeight);
-    Gmanager->registerEventDispatcher(eventDispatcher);
+    Gmanager->registerEventDispatcher(eventDispatcher, eventDispatcher->getGUImap());
     eventDispatcher->registerGUImanager(Gmanager);
 
     clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &timer);
@@ -124,14 +124,14 @@ void mWindow::updateGUI() {
     //    if (callbackFunc.drawMap)
     //        callbackFunc.drawMap(MAP_context);
 
-    cairo_set_operator(GUI_context, CAIRO_OPERATOR_DEST_OVER);
+    //cairo_set_operator(GUI_context, CAIRO_OPERATOR_DEST_OVER);
     //    cairo_set_source_surface(GUI_context, MAP_surface, 0, 0);
     //    cairo_paint(GUI_context);
     cairo_set_source_surface(frontContext, GUI_surface, 0, 0);
     cairo_paint(frontContext);
     
-    //cairo_set_source_rgb(GUI_context, 1, 1, 1);
-    //cairo_paint(GUI_context);
+    cairo_set_source_rgb(GUI_context, 1, 1, 1);
+    cairo_paint(GUI_context);
 
     //cairo_restore(frontContext);   
 

@@ -32,6 +32,12 @@ void GUIComponentBase::onRemap(uint_fast8_t* map) {
     std::cout << "Remap" << std::endl;
 }
 
+void GUIComponentBase::onUnmap(uint8_t *map){
+	for(unsigned i = 0; i<winWidth*winHeight; i++)
+		if(map[i] == componentID)
+			map[i] = 0;
+}
+
 void GUIComponentBase::onCreate() {
     std::cout << "I'm created!!" << std::endl;
 }
@@ -75,3 +81,10 @@ void GUIComponentBase::onButtonPress(int x, int y, int buttonCode) {
 void GUIComponentBase::onDestory() {
 
 }
+
+//Functions exposed to GUIcomponents
+
+uint8_t GUIComponentBase::idAtGUImapLocation(int x, int y){
+	return Gmanager->checkIDatGUImap(x, y);
+}
+

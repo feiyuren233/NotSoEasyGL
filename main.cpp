@@ -49,6 +49,7 @@ void draw(cairo_t *cr) {
     cairo_arc(cr, x + radius, y + radius, radius, 180 * degrees, 270 * degrees);
     cairo_close_path(cr);
 
+
     cairo_set_source_rgb(cr, 0.5, 0.5, 1);
     cairo_fill_preserve(cr);
     cairo_set_source_rgba(cr, 0.5, 0, 0, 0.5);
@@ -118,8 +119,6 @@ void draw2(Button *b, cairo_t *cr) {
 
 void ondrag(Button* b, int x, int y) {
     b->setTLPosition(x, y);
-
-
 }
 
 int winWidth, winHeight;
@@ -127,19 +126,14 @@ int winWidth, winHeight;
 int main() {
     initGUISys(1280, 960);
     mWindow win;
-    winWidth = 1000;
-    winHeight = 800;
     win.addGUIComponent(new GUIComponentBase());
-    Button *zeroButton = new Button(0, 0, 500, 500);
-    zeroButton->regOnDraw(draw2);
-    zeroButton->regOnDrag(ondrag);
-
+    Button *zeroButton = new Button(400, 400, 450, 420);
+	//zeroButton->regOnDraw(draw2);
     win.addGUIComponent(zeroButton);
 
     win.registerDrawGuiFunc(draw);
 
     win.showWindow();
-
 
     win.startEventLoop();
 
