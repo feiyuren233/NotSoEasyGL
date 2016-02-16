@@ -7,11 +7,22 @@
 
 #ifndef ANIMATABLE_H_
 #define ANIMATABLE_H_
+#include "Animator.h"
+class Animator;
 
 class Animatable {
-public:
+private:
+	friend class mWindow;
+	static Animator *animator;
 	Animatable();
+protected:
+	
+public:
 	virtual ~Animatable();
+
+	//virtual void onAnimationFinish();
+	//virtual bool isRunning();
+
 };
 
 #endif /* ANIMATABLE_H_ */

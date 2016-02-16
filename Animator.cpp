@@ -14,5 +14,6 @@ Animator::Animator() {
 
 Animator::~Animator() {
 	// TODO Auto-generated destructor stub
+
 }
 

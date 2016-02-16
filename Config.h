@@ -16,6 +16,5 @@
 
 extern int winWidth, winHeight;
 
-
 #endif /* CONFIG_H */
 

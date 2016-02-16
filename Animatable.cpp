@@ -6,7 +6,7 @@
  */
 
 #include "Animatable.h"
-
+Animator* Animatable::animator;
 Animatable::Animatable() {
 	// TODO Auto-generated constructor stub
 

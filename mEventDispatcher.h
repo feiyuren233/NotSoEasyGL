@@ -18,6 +18,7 @@
 #include <stdint.h>
 #include <X11/Xlib.h>
 #include <vector>
+#include <time.h>
 
 #include "GUIComponentBase.h"
 #include "GUIUtil.h"
@@ -28,40 +29,38 @@ class GUIManager;
 
 class EventDispatcher {
 private:
-    uint8_t *GUImap;
+	uint8_t *GUImap;
+	struct state {
+		int activeComp;
+		bool buttonPressed;
+		bool pointerMovedAfterPress;
+		int dragEventOwner;
+		int currentActiveWidget;
+		state() {
+			activeComp = 0;
+			buttonPressed = false;
+			pointerMovedAfterPress = false;
+			dragEventOwner = 0;
+			currentActiveWidget = 0;
+		}
+	} eventState;
 
-    struct state{
-        int activeComp;
-        bool buttonPressed;
-        bool pointerMovedAfterPress;
-        int dragEventOwner;
-        int currentActiveWidget;
-        state(){
-            activeComp = 0;
-            buttonPressed = false;
-            pointerMovedAfterPress = false;
-            dragEventOwner = 0;
-            currentActiveWidget = 0;
-        }
-    }eventState;
-    
-    GUIManager *GManager;
-    
+	GUIManager *GManager;
+
 protected:
 public:
-    inline unsigned TranslatePosition(int x, int y);
-    EventDispatcher(int winWidth, int winHeight);
-    ~EventDispatcher();
-    void registerGUImanager(GUIManager* Gmanager);
-    
-    uint8_t* getGUImap();
-    
-    void fetchAndDispatchEvent(XEvent*);
+	inline unsigned TranslatePosition(int x, int y);
+	EventDispatcher(int winWidth, int winHeight);
+	~EventDispatcher();
+	void registerGUImanager(GUIManager* Gmanager);
 
-    //void requestGlobalRemapComponent();
+	uint8_t* getGUImap();
+
+	void fetchAndDispatchEvent(XEvent*);
+
+	//void requestGlobalRemapComponent();
 
 };
-
 
 #endif /* MEVENTDISPATCHER_H */
 

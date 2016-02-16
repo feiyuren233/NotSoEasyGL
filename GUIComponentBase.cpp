@@ -13,49 +13,49 @@ GUIComponentBase::~GUIComponentBase() {
 }
 
 void GUIComponentBase::registerGUImanager(GUIManager* arg) {
-    Gmanager = arg;
+	Gmanager = arg;
 }
 
 int GUIComponentBase::getComponentID() {
-    return componentID;
+	return componentID;
 }
 
 void GUIComponentBase::setComponentID(int ID) {
-    componentID = ID;
+	componentID = ID;
 }
 
 //Deleate later
 
 void GUIComponentBase::onRemap(uint_fast8_t* map) {
-    for (int i = 0; i < 1000 * 400; i++)
-        map[i] = componentID;
-    std::cout << "Remap" << std::endl;
+	for (int i = 0; i < 1000 * 400; i++)
+		map[i] = componentID;
+	std::cout << "Remap" << std::endl;
 }
 
-void GUIComponentBase::onUnmap(uint8_t *map){
-	for(unsigned i = 0; i<winWidth*winHeight; i++)
-		if(map[i] == componentID)
+void GUIComponentBase::onUnmap(uint8_t *map) {
+	for (unsigned i = 0; i < winWidth * winHeight; i++)
+		if (map[i] == componentID)
 			map[i] = 0;
 }
 
 void GUIComponentBase::onCreate() {
-    std::cout << "I'm created!!" << std::endl;
+	std::cout << "I'm created!!" << std::endl;
 }
 
 void GUIComponentBase::onKeyPress(int keycode) {
-    std::cout << keycode << std::endl;
+	std::cout << keycode << std::endl;
 }
 
 void GUIComponentBase::onEnter() {
-    std::cout << "Entered " << componentID << std::endl;
+	std::cout << "Entered " << componentID << std::endl;
 }
 
 void GUIComponentBase::onLeave() {
-    std::cout << "Left " << componentID << std::endl;
+	std::cout << "Left " << componentID << std::endl;
 }
 
 void GUIComponentBase::onClick(int x, int y) {
-    std::cout << "Click  x = " << x << "; Y = " << y << std::endl;
+	std::cout << "Click  x = " << x << "; Y = " << y << std::endl;
 }
 
 void GUIComponentBase::onDrag(int x, int y) {
@@ -84,7 +84,7 @@ void GUIComponentBase::onDestory() {
 
 //Functions exposed to GUIcomponents
 
-uint8_t GUIComponentBase::idAtGUImapLocation(int x, int y){
+uint8_t GUIComponentBase::idAtGUImapLocation(int x, int y) {
 	return Gmanager->checkIDatGUImap(x, y);
 }
 

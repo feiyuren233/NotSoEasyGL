@@ -15,63 +15,52 @@
 #define WIDGETBUTTON_H
 #include "GUIComponentBase.h"
 
-class Button : public GUIComponentBase {
+class Button: public GUIComponentBase {
 private:
-    Point2i TLPosition, BRPosition;
-    int width, height;
+	Point2i TLPosition, BRPosition;
+	int width, height;
 
-    bool pressed, focused;
+	bool pressed, focused;
 
-    //void (*ButtonCallback)(void);
+	//void (*ButtonCallback)(void);
 
-    void (*clickCallback)(Button *button, int x, int y);
-    void (*buttonPressCallback)(Button *button, int x, int y, int buttonCode);
-    void (*drawCallBack)(Button *button, cairo_t *context);
-    void (*dragCallBack)(Button *button, int x, int y);
+	void (*clickCallback)(Button *button, int x, int y);
+	void (*buttonPressCallback)(Button *button, int x, int y, int buttonCode);
+	void (*drawCallBack)(Button *button, cairo_t *context);
+	void (*dragCallBack)(Button *button, int x, int y);
 
-    void drawDefaultButton(cairo_t *context);
+	void drawDefaultButton(cairo_t *context);
 protected:
 
 public:
-    Point2i getTLPosition();
-    void setTLPosition(int x, int y);
-    
-    Button(int TLx, int TLy, int BRx, int BRy);
-    void regOnButtonpress(void (*buttonPressCB)(Button*, int, int));
-    void regOnClick(void (*clickCB)(Button*, int, int));
-    void regOnDraw(void (*drawCB)(Button*, cairo_t*));
-    void regOnDrag(void (*dragCB)(Button*, int x, int y));
+	Point2i getTLPosition();
+	void setTLPosition(int x, int y);
 
-    virtual void onButtonPress(int x, int y, int buttonCode);
+	Button(int TLx, int TLy, int BRx, int BRy);
+	void regOnButtonpress(void (*buttonPressCB)(Button*, int, int));
+	void regOnClick(void (*clickCB)(Button*, int, int));
+	void regOnDraw(void (*drawCB)(Button*, cairo_t*));
+	void regOnDrag(void (*dragCB)(Button*, int x, int y));
 
-    virtual void onClick(int x, int y);
+	virtual void onButtonPress(int x, int y, int buttonCode);
 
-    virtual void onDraw(cairo_t*);
+	virtual void onClick(int x, int y);
 
-    virtual void onRemap(uint_fast8_t*);
+	virtual void onDraw(cairo_t*);
 
-    virtual void onDrag(int x, int y);
+	virtual void onRemap(uint_fast8_t*);
 
-    virtual void onDrop(int x, int y);
+	virtual void onDrag(int x, int y);
 
-    virtual void onEnter();
+	virtual void onDrop(int x, int y);
 
-    virtual void onLeave();
+	virtual void onEnter();
 
-    //virtual void onUnmap(uint8_t *map);
+	virtual void onLeave();
 
-
-
-
-
-
-
-
-
+	//virtual void onUnmap(uint8_t *map);
 
 };
-
-
 
 #endif /* WIDGETBUTTON_H */
 
