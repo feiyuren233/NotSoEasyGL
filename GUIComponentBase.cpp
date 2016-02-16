@@ -6,7 +6,9 @@
 #include "GUIComponentBase.h"
 GUIManager* GUIComponentBase::Gmanager;
 
-GUIComponentBase::GUIComponentBase() {
+GUIComponentBase::GUIComponentBase(int x, int y) {
+	refPoint.x = x;
+	refPoint.y = y;
 }
 
 GUIComponentBase::~GUIComponentBase() {
@@ -24,6 +26,11 @@ void GUIComponentBase::setComponentID(int ID) {
 	componentID = ID;
 }
 
+Point2i GUIComponentBase::getRefPoint(){
+	return refPoint;
+
+
+}
 //Deleate later
 
 void GUIComponentBase::onRemap(uint_fast8_t* map) {

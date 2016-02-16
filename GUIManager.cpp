@@ -30,7 +30,7 @@ void GUIManager::registerEventDispatcher(EventDispatcher* eventDispatcher,
 	GUIManager::eventDispatcher = eventDispatcher;
 	GUIManager::GUImap = GUImap;
 
-	GUIComponentBase *zeroComponent = new GUIComponentBase();
+	GUIComponentBase *zeroComponent = new GUIComponentBase(0, 0);
 	zeroComponent->registerGUImanager(this);
 	addComponent(zeroComponent);
 }

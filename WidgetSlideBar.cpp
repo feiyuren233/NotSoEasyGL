@@ -7,7 +7,7 @@
 
 #include "WidgetSlideBar.h"
 
-WidgetSlideBar::WidgetSlideBar() {
+WidgetSlideBar::WidgetSlideBar(int x, int y):GUIComponentBase(x, y) {
 	// TODO Auto-generated constructor stub
 
 }

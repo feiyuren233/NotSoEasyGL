@@ -37,6 +37,8 @@ protected:
 	uint8_t *GUImap;
 	unsigned componentID;
 
+	Point2i refPoint;
+
 	enum BoundType {
 		Circle, Redtangle
 	} BoundType;
@@ -60,13 +62,13 @@ protected:
 	virtual uint8_t idAtGUImapLocation(int x, int y);
 
 public:
-	GUIComponentBase();
+	GUIComponentBase(int x, int y);
 	virtual ~GUIComponentBase();
 
 
 	int getComponentID();
 
-
+	Point2i getRefPoint();
 
 	friend class EventDispatcher;
 	friend class GUIManager;

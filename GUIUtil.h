@@ -13,8 +13,9 @@
 
 #ifndef GUIUTIL_H
 #define GUIUTIL_H
-#include "GUIComponentBase.h"
+//#include "GUIComponentBase.h"
 #include "Config.h"
+#include <time.h>
 
 struct Point2i {
 	int x, y;

@@ -122,7 +122,7 @@ int winWidth, winHeight;
 int main() {
 	initGUISys(1280, 960);
 	mWindow win;
-	win.addGUIComponent(new GUIComponentBase());
+	win.addGUIComponent(new GUIComponentBase(0, 0));
 	Button *zeroButton = new Button(400, 400, 500, 460);
 	//zeroButton->regOnDraw(draw2);
 	win.addGUIComponent(zeroButton);

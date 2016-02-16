@@ -12,9 +12,15 @@ void Button::onButtonPress(int x, int y, int buttonCode) {
 }
 
 Button::Button(int TLx, int TLy, int BRx, int BRy) :
-		TLPosition(TLx, TLy), BRPosition(BRx, BRy) {
+		TLPosition(TLx, TLy), BRPosition(BRx, BRy), GUIComponentBase(TLx, TLy) {
 	width = BRPosition.x - TLPosition.x;
 	height = BRPosition.y - TLPosition.y;
+
+	clickCallback = NULL;
+	buttonPressCallback = NULL;
+	drawCallBack = NULL;
+	dragCallBack = NULL;
+
 	pressed = false;
 	focused = false;
 }

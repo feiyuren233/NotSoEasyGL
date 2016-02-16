@@ -12,7 +12,7 @@
 
 class WidgetSlideBar: public GUIComponentBase {
 public:
-	WidgetSlideBar();
+	WidgetSlideBar(int x, int y);
 	virtual ~WidgetSlideBar();
 };
 
