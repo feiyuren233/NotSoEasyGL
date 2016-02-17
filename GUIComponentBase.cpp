@@ -27,6 +27,7 @@ void GUIComponentBase::setComponentID(int ID) {
 }
 
 void GUIComponentBase::onMotion(int x, int y) {
+	std::cout << "Motion  x = " << x << "; Y = " << y << std::endl;
 }
 
 Point2i GUIComponentBase::getRefPoint(){

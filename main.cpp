@@ -92,7 +92,7 @@ int main() {
 	Textbox *textbox = new Textbox(1, 1);
 	//zeroButton->regOnDraw(draw2);
 	win.addGUIComponent(zeroButton);
-	win.addGUIComponent(textbox);
+	//win.addGUIComponent(textbox);
 
 	win.registerDrawGuiFunc(draw);
 

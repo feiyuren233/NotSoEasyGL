@@ -62,6 +62,7 @@ void EventDispatcher::fetchAndDispatchEvent(XEvent *event) {
 			GManager->operator[](eventState.activeComp)->onUnFocus();
 			GManager->operator[](curMapValue)->onFocus();
 		}
+		GManager->operator[](curMapValue)->onMotion(pointerX, pointerY);
 		eventState.activeComp = curMapValue;
 		break;
 
