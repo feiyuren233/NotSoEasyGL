@@ -43,18 +43,21 @@ protected:
 		Circle, Redtangle
 	} BoundType;
 
+	bool focused;
+
 	//Callbacks
 	virtual void onDraw(cairo_t* context);
 	virtual void onRemap(uint_fast8_t* map);
 	virtual void onUnmap(uint_fast8_t *map);
 	virtual void onCreate();
 	virtual void onDestory();
-	virtual void onEnter();
-	virtual void onLeave();
+	virtual void onFocus();
+	virtual void onUnFocus();
 	virtual void onButtonPress(int x, int y, int buttonCode);
 	virtual void onClick(int x, int y);
-	virtual void onKeyPress(int keycode);
-	virtual void onKeyRelease(int keycode);
+	virtual void onMotion(int x, int y);
+	virtual void onKeyPress(int keyAscii);
+	virtual void onKeyRelease(int keyAscii);
 	virtual void onDrag(int x, int y);
 	virtual void onDrop(int x, int y);
 

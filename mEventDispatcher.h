@@ -16,9 +16,11 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdint.h>
-#include <X11/Xlib.h>
 #include <vector>
 #include <time.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xos.h>
 
 #include "GUIComponentBase.h"
 #include "GUIUtil.h"
@@ -46,6 +48,10 @@ private:
 	} eventState;
 
 	GUIManager *GManager;
+
+	char buffer[1];
+	int inputLength;
+	KeySym keysym;
 
 protected:
 public:

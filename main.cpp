@@ -22,6 +22,7 @@
 #include "notSoEasyGL.h"
 #include "mEventDispatcher.h"
 #include "WidgetButton.h"
+#include "WidgetTextbox.h"
 
 #define M_PI 3.1415
 
@@ -55,62 +56,26 @@ void draw(cairo_t *cr) {
 	cairo_stroke(cr);
 }
 
-void draw2(Button *b, cairo_t *cr) {
+void draw2(cairo_t *cr) {
 
-	//std::cout << "Draw2!!!" << std::endl;
+	cairo_set_source_rgb(cr, 0.2, 0.3, 0.8);
+	  cairo_rectangle(cr, 10, 10, 30, 30);
+	  cairo_fill(cr);
 
-	double x0 = b->getTLPosition().x, /* parameters like cairo_rectangle */
-	y0 = b->getTLPosition().y, rect_width = 500, rect_height = 500, radius =
-			102.4; /* and an approximate curvature radius */
+	  cairo_translate(cr, 20, 20);
+	  cairo_set_source_rgb(cr, 0.8, 0.3, 0.2);
+	  cairo_rectangle(cr, 0, 0, 30, 30);
+	  cairo_fill(cr);
 
-	double x1, y1;
+	  cairo_translate(cr, 30, 30);
+	  cairo_set_source_rgb(cr, 0.8, 0.8, 0.2);
+	  cairo_rectangle(cr, 0, 0, 30, 30);
+	  cairo_fill(cr);
 
-	x1 = x0 + rect_width;
-	y1 = y0 + rect_height;
-	if (!rect_width || !rect_height)
-		return;
-	if (rect_width / 2 < radius) {
-		if (rect_height / 2 < radius) {
-			cairo_move_to(cr, x0, (y0 + y1) / 2);
-			cairo_curve_to(cr, x0, y0, x0, y0, (x0 + x1) / 2, y0);
-			cairo_curve_to(cr, x1, y0, x1, y0, x1, (y0 + y1) / 2);
-			cairo_curve_to(cr, x1, y1, x1, y1, (x1 + x0) / 2, y1);
-			cairo_curve_to(cr, x0, y1, x0, y1, x0, (y0 + y1) / 2);
-		} else {
-			cairo_move_to(cr, x0, y0 + radius);
-			cairo_curve_to(cr, x0, y0, x0, y0, (x0 + x1) / 2, y0);
-			cairo_curve_to(cr, x1, y0, x1, y0, x1, y0 + radius);
-			cairo_line_to(cr, x1, y1 - radius);
-			cairo_curve_to(cr, x1, y1, x1, y1, (x1 + x0) / 2, y1);
-			cairo_curve_to(cr, x0, y1, x0, y1, x0, y1 - radius);
-		}
-	} else {
-		if (rect_height / 2 < radius) {
-			cairo_move_to(cr, x0, (y0 + y1) / 2);
-			cairo_curve_to(cr, x0, y0, x0, y0, x0 + radius, y0);
-			cairo_line_to(cr, x1 - radius, y0);
-			cairo_curve_to(cr, x1, y0, x1, y0, x1, (y0 + y1) / 2);
-			cairo_curve_to(cr, x1, y1, x1, y1, x1 - radius, y1);
-			cairo_line_to(cr, x0 + radius, y1);
-			cairo_curve_to(cr, x0, y1, x0, y1, x0, (y0 + y1) / 2);
-		} else {
-			cairo_move_to(cr, x0, y0 + radius);
-			cairo_curve_to(cr, x0, y0, x0, y0, x0 + radius, y0);
-			cairo_line_to(cr, x1 - radius, y0);
-			cairo_curve_to(cr, x1, y0, x1, y0, x1, y0 + radius);
-			cairo_line_to(cr, x1, y1 - radius);
-			cairo_curve_to(cr, x1, y1, x1, y1, x1 - radius, y1);
-			cairo_line_to(cr, x0 + radius, y1);
-			cairo_curve_to(cr, x0, y1, x0, y1, x0, y1 - radius);
-		}
-	}
-	cairo_close_path(cr);
-
-	cairo_set_source_rgba(cr, 1, 0.5, 1.0, 0.1);
-	cairo_fill_preserve(cr);
-	cairo_set_source_rgba(cr, 0.5, 0, 0, 0.5);
-	cairo_set_line_width(cr, 10.0);
-	cairo_stroke(cr);
+	  cairo_translate(cr, 40, 40);
+	  cairo_set_source_rgb(cr, 0.3, 0.8, 0.8);
+	  cairo_rectangle(cr, 0, 0, 30, 30);
+	  cairo_fill(cr);
 }
 
 void ondrag(Button* b, int x, int y) {
@@ -124,8 +89,10 @@ int main() {
 	mWindow win;
 	win.addGUIComponent(new GUIComponentBase(0, 0));
 	Button *zeroButton = new Button(400, 400, 500, 460);
+	Textbox *textbox = new Textbox(1, 1);
 	//zeroButton->regOnDraw(draw2);
 	win.addGUIComponent(zeroButton);
+	win.addGUIComponent(textbox);
 
 	win.registerDrawGuiFunc(draw);
 
@@ -134,5 +101,4 @@ int main() {
 	win.startEventLoop();
 
 	return 0;
-
 }

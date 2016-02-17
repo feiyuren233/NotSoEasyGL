@@ -93,11 +93,11 @@ void Button::onDrop(int x, int y) {
 		onClick(x, y);
 }
 
-void Button::onEnter() {
+void Button::onFocus() {
 	focused = true;
 
 }
-void Button::onLeave() {
+void Button::onUnFocus() {
 	focused = false;
 }
 

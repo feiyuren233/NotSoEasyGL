@@ -20,7 +20,7 @@ private:
 	Point2i TLPosition, BRPosition;
 	int width, height;
 
-	bool pressed, focused;
+	bool pressed;
 
 	//void (*ButtonCallback)(void);
 
@@ -54,9 +54,9 @@ public:
 
 	virtual void onDrop(int x, int y);
 
-	virtual void onEnter();
+	virtual void onFocus();
 
-	virtual void onLeave();
+	virtual void onUnFocus();
 
 	//virtual void onUnmap(uint8_t *map);
 

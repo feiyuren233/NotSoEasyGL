@@ -26,6 +26,9 @@ void GUIComponentBase::setComponentID(int ID) {
 	componentID = ID;
 }
 
+void GUIComponentBase::onMotion(int x, int y) {
+}
+
 Point2i GUIComponentBase::getRefPoint(){
 	return refPoint;
 
@@ -49,15 +52,15 @@ void GUIComponentBase::onCreate() {
 	std::cout << "I'm created!!" << std::endl;
 }
 
-void GUIComponentBase::onKeyPress(int keycode) {
-	std::cout << keycode << std::endl;
+void GUIComponentBase::onKeyPress(int keyAscii) {
+	std::cout << keyAscii << std::endl;
 }
 
-void GUIComponentBase::onEnter() {
+void GUIComponentBase::onFocus() {
 	std::cout << "Entered " << componentID << std::endl;
 }
 
-void GUIComponentBase::onLeave() {
+void GUIComponentBase::onUnFocus() {
 	std::cout << "Left " << componentID << std::endl;
 }
 
@@ -77,7 +80,7 @@ void GUIComponentBase::onDrop(int x, int y) {
 
 }
 
-void GUIComponentBase::onKeyRelease(int keycode) {
+void GUIComponentBase::onKeyRelease(int keyAscii) {
 
 }
 
@@ -94,4 +97,6 @@ void GUIComponentBase::onDestory() {
 uint8_t GUIComponentBase::idAtGUImapLocation(int x, int y) {
 	return Gmanager->checkIDatGUImap(x, y);
 }
+
+
 
